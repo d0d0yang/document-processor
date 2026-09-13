@@ -2,6 +2,11 @@
 
 A document scanner that pulls keyword/value pairs out of PDFs, images, and other text-based files. Choose how much extraction comes from raw OCR versus LLM processing with a single slider.
 
+<p float="left">
+  <img width="49%" height="49%" alt="image" src="https://github.com/user-attachments/assets/242662ef-61c2-497e-b7e8-6c397b304b92" />
+  <img width="50%" height="50%" alt="image" src="https://github.com/user-attachments/assets/defd4d25-9597-482b-8937-eb30a9a6861f" />
+</p>
+
 ## Functionality
 
 Select a document and type in the chosen keywords (invoice #, last name, etc). A slider controls the balance between two extraction methods:
