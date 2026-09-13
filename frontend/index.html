@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document Processor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<!-- these two power fully-offline, in-browser OCR for strict-OCR mode (bias = 0%) -->
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/legacy/build/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+<body>
+
+<div class="sheet">
+
+  <header class="masthead">
+    <h1>Document Processor</h1>
+    <p class="masthead__sub">Provide a document and enter keywords to extract</p>
+  </header>
+
+  <form id="scan-form" class="panel">
+
+    <section class="field-block">
+      <label class="field-label" for="file-input">Document</label>
+      <div id="dropzone" class="dropzone">
+        <input type="file" id="file-input" name="file" accept=".pdf,.png,.jpg,.jpeg,.tiff,.bmp,.gif,.txt,.md" hidden>
+        <p id="dropzone-text">Drop a file here, or <span class="dropzone__browse">browse</span></p>
+        <p id="dropzone-filename" class="dropzone__filename" hidden></p>
+      </div>
+    </section>
+
+    <div class="rule"></div>
+
+    <section class="field-block">
+      <label class="field-label" for="keywords-input">Keywords <span class="field-label__hint">leave blank to automatically extract</span></label>
+      <input type="text" id="keywords-input" placeholder="e.g. invoice number, due date, total" autocomplete="off">
+    </section>
+
+    <section class="field-block">
+      <label class="field-label" for="prompt-input">Prompt <span class="field-label__hint">optional</span></label>
+      <textarea id="prompt-input" rows="2" placeholder="e.g. this is a vendor invoice, dates are in DD/MM/YYYY"></textarea>
+    </section>
+
+    <div class="rule"></div>
+
+    <section class="field-block">
+      <div class="dial-header">
+        <label class="field-label" for="bias-slider">Bias <span class="field-label__hint">favor manual vs AI scan.</span></label>
+        <span id="dial-readout" class="dial-readout">Complete AI</span>
+      </div>
+      <div class="dial">
+        <span class="dial__end">Man.</span>
+        <input type="range" id="bias-slider" min="0" max="100" value="100" step="1">
+        <span class="dial__end">AI</span>
+      </div>
+      <p id="dial-note" class="dial-note">No keywords provided. Automatically processed by AI.</p>
+    </section>
+
+    <button type="submit" id="submit-btn" class="submit-btn">Process document</button>
+
+  </form>
+
+  <section id="results-section" class="ledger" hidden>
+    <div class="ledger__head">
+      <span class="ledger__title">Results</span>
+      <span id="ledger-mode" class="ledger__mode"></span>
+    </div>
+    <pre id="ledger-body" class="ledger__body"></pre>
+    <div class="ledger__actions">
+      <span class="ledger__actions-label">Download</span>
+      <button type="button" id="download-json" class="link-btn">JSON</button>
+      <button type="button" id="download-csv" class="link-btn">CSV</button>
+      <button type="button" id="download-txt" class="link-btn">TXT</button>
+    </div>
+  </section>
+
+  <p id="status-line" class="status-line" hidden></p>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

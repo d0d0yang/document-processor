@@ -1,0 +1,12 @@
+# Default
+/build
+/backend/__pycache__
+/main.spec
+
+# Sensetive
+/.idea
+/.env
+
+# DEBUG
+/test_doc.pdf
+/main.py
